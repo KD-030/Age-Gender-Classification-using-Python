@@ -1,192 +1,61 @@
-Implement Face detection, and Age and Gender Classification using Keras.
-
-<img src="https://github.com/abars/YoloKerasFaceDetection/blob/master/pretrain/demo.jpg" width="50%" height="50%">
-(image from wider face dataset)
-
-# Overview
-
-## Functions
-
-Face Detection
-
-Age and Gender Classification
-
-## Requirements
-
-Keras2 (Tensorflow backend)
-
-OpenCV
-
-Python 2.7
-
-Darknet (for Training)
-
-# Test
-
-## Download Pretrained-Model
-
-`python download_model.py`
-
-## Predict from Camera Image
-
-Here is a run using pretrained model .
-
-`python agegender_demo.py`
-
-# Train
-
-## Install
-
-### Keras
-
-`pip install keras`
-
-### Darknet
-
-Download Darknet and put in the same folder.
-
-https://github.com/pjreddie/darknet
-
-## Face Detection (FDDB)
-
-### Create dataset
-
-Download fddb dataset (FDDB-folds and originalPics folder) and put in the dataset/fddb folder.
-
-http://vis-www.cs.umass.edu/fddb/
-
-Create dataset/fddb/FDDB-folds/annotations_darknet folder for darknet.
-
-`python annotation_fddb_darknet.py`
-
-Preview converted annotations.
-
-`python annotation_view.py fddb`
-
-[![FDDB dataset overview](https://img.youtube.com/vi/KGeY_PFhRYA/0.jpg)](https://www.youtube.com/watch?v=KGeY_PFhRYA&feature=youtu.be)
-
-### Train using Darknet
-
-Here is a training using YoloV2.
-
-`cd darknet`
-
-`./darknet detector train data/face-one-class.data cfg/yolov2-tiny-train-one-class.cfg`
-
-### Test using Darknet
-
-Here is a test.
-
-`./darknet detector demo data/face-one-class.data cfg/yolov2-tiny-train-one-class.cfg backup-face/yolov2-tiny-train-one-class_32600.weights -c 0`
-
-### Training Result
-
-<img src="https://github.com/abars/YoloKerasFaceDetection/blob/master/pretrain/yolov2-tiny-train-one-class_32600.jpg" width="50%" height="50%">
-
-<http://www.abars.biz/keras/yolov2-tiny-one-class.cfg>
-
-<http://www.abars.biz/keras/yolov2-tiny-train-one-class_32600.weights>
-
-### Convert to Keras Model
-
-Download YAD2K
-
-https://github.com/allanzelener/YAD2K
-
-This is a convert script.
-
-`python3 yad2k.py yolov2-tiny-train-one-class.cfg yolov2-tiny-train-one-class_32600.weights yolov2_tiny-face.h5`
-
-This is a converted model.
-
-<https://github.com/abars/YoloKerasFaceDetection/releases/download/1.10/yolov2_tiny-face.h5>
-
-## Age and Gender classification
-
-### Create Dataset
-
-#### Use AdienceBenchmarkOfUnfilteredFacesForGenderAndAgeClassification dataset
-
-Download AdienceBenchmarkOfUnfilteredFacesForGenderAndAgeClassification dataset and put in the dataset/adience folder.
-
-https://www.openu.ac.il/home/hassner/Adience/data.html#agegender
-
-Create dataset/agegender_adience/annotations for keras.
-
-`python annotation_agegender_adience_keras.py`
-
-#### Use IMDB-WIKI dataset
-
-Download IMDB-WIKI dataset (Download faces only 7gb) and put in the dataset/imdb_crop folder.
-
-https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/
-
-Create dataset/agegender_imdb/annotations for keras.
-
-`python annotation_imdb_keras.py`
-
-#### Use UTKFace dataset
-
-Download UTKFace dataset and put in the dataset/imdb_crop folder.
-
-https://susanqq.github.io/UTKFace/
-
-Create dataset/agegender_utk/annotations for keras.
-
-`python annotation_utkface_keras.py`
-
-#### Use AppaReal dataset
-
-Download AppaReal dataset and put in the dataset/appa-real-release folder.
-
-http://chalearnlap.cvc.uab.es/dataset/26/description/
-
-Create dataset/agegender_appareal/annotations for keras.
-
-`python annotation_appareal_keras.py`
-
-### Train using Keras
-
-Install keras-squeezenet
-
-https://github.com/rcmalli/keras-squeezenet
-
-Run classifier task using keras.
-
-`python agegender_train.py age101 squeezenet imdb`
-
-`python agegender_train.py gender squeezenet imdb`
-
-### Test using Keras
-
-Test classifier task using keras.
-
-`python agegender_predict.py age101 squeezenet imdb`
-
-`python agegender_predict.py gender squeezenet imdb`
-
-### Training result
-
-Age101 (IMDB) (EPOCHS=100)
-
-<img src="https://github.com/abars/YoloKerasFaceDetection/blob/master/pretrain/agegender_age101_squeezenet_imdb.png" width="50%" height="50%">
-
-<img src="https://github.com/abars/YoloKerasFaceDetection/blob/master/pretrain/benchmark_age101_squeezenet_imdb.png" width="50%" height="50%">
-
-<https://github.com/abars/YoloKerasFaceDetection/releases/download/1.10/agegender_age101_squeezenet_imdb.hdf5>
-
-Gender (IMDB) (EPOCHS=25)
-
-<img src="https://github.com/abars/YoloKerasFaceDetection/blob/master/pretrain/agegender_gender_squeezenet.png" width="50%" height="50%">
-
-<img src="https://github.com/abars/YoloKerasFaceDetection/blob/master/pretrain/benchmark_gender_squeezenet_imdb.png" width="50%" height="50%">
-
-<https://github.com/abars/YoloKerasFaceDetection/releases/download/1.10/agegender_gender_squeezenet_imdb.hdf5>
-
-# Related Work
-
-<https://github.com/dannyblueliu/YOLO-Face-detection>
-
-<https://github.com/oarriaga/face_classification>
-
-<https://github.com/yu4u/age-gender-estimation>
+# Age Group and Gender estimation from face image using CNN.
+
+Two Custom CNN layers are trained for age group and gender estimation.
+
+For the Age Group classification trained CNN over the 23000 images, and for the Gender Classification trained CNN 4000+ images of indian face.
+
+###
+
+#### Age Group parameters are :
+```
+Kid = 0 - 14,
+Youth = 15-40,
+Middle Age = 41-60,
+Senior = 60+.
+```
+#### Gender parameters are :
+```
+1) Male
+2) Female
+```
+The name of dataset is "UTKFace" where the information about age, gender, and ethnicity is given in the image title.
+***Link***: https://www.kaggle.com/jangedoo/utkface-new
+
+# Usage
+1. Install Following libraries using pip
+- numpy 1.16.2
+- opencv-python 4.0.1.24
+- face-recognition 1.2.3
+- tensorflow 1.11.0
+- tensorflow-gpu 1.11.0 (Optional if you have Nvidia CUDA Supported GPU)
+- keras 2.2.4
+- PyQt5 5.12.1
+2. Clone or download the repository and extract it into a folder and open it.
+3. Run gui.py using cmd 
+```
+python gui.py
+```
+# Convolution Neural Network
+
+***Link***: https://medium.com/@RaghavPrabhu/understanding-of-convolutional-neural-network-cnn-deep-learning-99760835f148
+
+# Training CNN
+##### Image Preprocessing:
+Face Images are resize into 180X180 pixel size and converted into gray scale and given image input to CNN.
+
+For more than 2 class classification label is encoded with one hot encoding.
+
+# Results
+![alt text](https://github.com/prashantmokani/age_and_gender_classifier/blob/master/male-senior-modi.JPG)
+
+![alt text](https://github.com/prashantmokani/age_and_gender_classifier/blob/master/op1.PNG)
+
+![alt text](https://github.com/prashantmokani/age_and_gender_classifier/blob/master/dubai.jpg)
+
+###### Confusion matrix for the Gender classification:
+
+![alt text](https://github.com/prashantmokani/age_and_gender_classifier/blob/master/conf_gender.PNG)
+
+###### Confusion matrix for the Age Group classification:
+
+![alt text](https://github.com/prashantmokani/age_and_gender_classifier/blob/master/conf_age.PNG)
