@@ -35,10 +35,6 @@ The name of dataset is "UTKFace" where the information about age, gender, and et
 ```
 python gui.py
 ```
-# Convolution Neural Network
-
-***Link***: https://medium.com/@RaghavPrabhu/understanding-of-convolutional-neural-network-cnn-deep-learning-99760835f148
-
 # Training CNN
 ##### Image Preprocessing:
 Face Images are resize into 180X180 pixel size and converted into gray scale and given image input to CNN.
